@@ -19,16 +19,7 @@ const App = () => {
   );
   const { userInfo } = userLogin;
 
-  useEffect(() => {
-    // ;(async () => {
-    //   const response = await fetch('http://localhost:8081/api/user', {
-    //     headers: { 'Content-Type': 'application/json' },
-    //     credentials: 'include',
-    //   })
-    //   const data = await response.json()
-    //   setFirstName(data.first_name)
-    // })()
-  });
+  useEffect(() => {});
 
   return (
     <Router>

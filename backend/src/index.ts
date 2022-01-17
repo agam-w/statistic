@@ -7,7 +7,6 @@ import cors from "cors";
 import {config as dotenv} from "dotenv";
 
 // Routers
-import UserRoutes from "./routers/UserRoutes";
 import AuthRoutes from "./routers/AuthRoutes";
 import PerformanceRoutes from "./routers/PerformanceRoutes";
 
@@ -22,9 +21,6 @@ class App {
   }
 
   protected plugins(): void {
-    // this.app.use(bodyParser.urlencoded({
-    //   extended: true
-    // }));
     this.app.use(bodyParser.json());
     this.app.use(morgan("dev"));
     this.app.use(compression());
@@ -34,12 +30,11 @@ class App {
 
   protected routes(): void {
     this.app.route("/").get((req: Request, res: Response) => {
-      res.send("ini adalah route menggunakan TS");
+      res.send("API ready!");
     });
 
     this.app.use("/api/v1/auth", AuthRoutes);
     this.app.use("/api/v1/performance", PerformanceRoutes);
-    this.app.use("/api/v1/users", UserRoutes);
   }
 }
 
