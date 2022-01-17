@@ -1,7 +1,11 @@
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import FormContainer from '../components/FormContainer';
+import { login } from '../store/actions/userAction';
+import { RootState } from '../store/store';
+import { UserState } from '../store/reducers/userReducer';
 
 interface Props {
   history: RouteComponentProps['history'];
@@ -10,14 +14,22 @@ interface Props {
 const LoginScreen = ({ history }: Props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const user = useSelector<RootState, UserState>(
+    (state: RootState) => state.userLogin
+  );
+
+  const dispatch = useDispatch();
 
   const submitHandler = async (e: SyntheticEvent) => {
     e.preventDefault();
-
-    // interact with the backend using fetch
-
-    history.push('/');
+    await dispatch(login(email, password));
   };
+
+  useEffect(() => {
+    if (user?.userInfo?.token) {
+      history.push('/');
+    }
+  }, [user]);
 
   return (
     <FormContainer>

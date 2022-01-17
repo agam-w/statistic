@@ -9,8 +9,9 @@ export interface UserState {
   loading?: boolean;
   error?: string;
   userInfo: {
-    firstName?: string;
-    lastName?: string;
+    username?: string;
+    email?: string;
+    token?: string;
   };
 }
 
@@ -19,7 +20,10 @@ interface UserAction {
   payload?: string;
 }
 
-export const userLoginReducer = (state: UserState, action: UserAction) => {
+export const userLoginReducer = (
+  state: UserState = { userInfo: {} },
+  action: UserAction
+) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
       return { loading: true };
@@ -28,7 +32,13 @@ export const userLoginReducer = (state: UserState, action: UserAction) => {
     case USER_LOGIN_FAIL:
       return { loading: false, error: action.payload };
     case USER_LOGOUT:
-      return {};
+      return {
+        userInfo: {
+          username: '',
+          email: '',
+          token: ''
+        }
+      };
     default:
       return state;
   }

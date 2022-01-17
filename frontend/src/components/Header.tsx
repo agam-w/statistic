@@ -1,21 +1,23 @@
 import { SyntheticEvent } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../store/actions/userAction';
+import { RootState } from '../store/store';
+import { UserState } from '../store/reducers/userReducer';
 
-interface Props {
-  firstName: string;
-  setFirstName: (firstName: string) => void;
-}
+const Header = () => {
+  const dispatch = useDispatch();
 
-const Header = ({ firstName, setFirstName }: Props) => {
+  const userLogin = useSelector<RootState, UserState>(
+    (state: RootState) => state.userLogin
+  );
+  const { userInfo } = userLogin;
+
   const logoutHandler = async (e: SyntheticEvent) => {
+    console.log('kesini');
     e.preventDefault();
-
-    await fetch('http://localhost:8081/api/logout', {
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include'
-    });
-
-    setFirstName('');
+    dispatch(logout());
+    window.location.reload();
   };
 
   return (
@@ -24,7 +26,7 @@ const Header = ({ firstName, setFirstName }: Props) => {
         <Navbar.Brand href='/'>Statistic Dashboard</Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
-          {firstName ? (
+          {userInfo ? (
             <Nav className='ms-auto'>
               <Nav.Link onClick={logoutHandler}>Logout</Nav.Link>
             </Nav>
