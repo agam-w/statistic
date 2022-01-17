@@ -47,7 +47,4 @@ const port: number = 8000;
 const app = new App().app;
 
 app.listen(port, () => {
-  console.log("app running on port " + port)
-
-  console.log(process.env.NODE_ENV)
 });

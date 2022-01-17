@@ -29,15 +29,12 @@ export const login =
         })
       });
 
-      console.log(response.status);
-
       if (response.status !== 200) {
         alert('wrong username or password!');
         return;
       }
 
       const data = await response.json();
-      console.log(data, 'data');
       const userData = {
         username: data.userInfo.username,
         email: data.userInfo.email,
@@ -51,7 +48,6 @@ export const login =
       });
       localStorage.setItem('userInfo', JSON.stringify(data));
     } catch (error: any) {
-      console.log(error, 'error');
       dispatch({
         type: USER_LOGIN_FAIL,
         payload:

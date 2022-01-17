@@ -25,11 +25,9 @@ class AuthController {
     }
 
     let compare = await Authentication.passwordCompare(password, user.password);
-    console.log('kesini')
     if (compare) {
       let token = Authentication.generateToken(user.id, user.username, user.email, user.password);
       let data = {token, userInfo: user};
-      console.log(data)
       return res.json(data);
     }
 

@@ -14,7 +14,6 @@ const Header = () => {
   const { userInfo } = userLogin;
 
   const logoutHandler = async (e: SyntheticEvent) => {
-    console.log('kesini');
     e.preventDefault();
     dispatch(logout());
     window.location.reload();
@@ -23,7 +22,9 @@ const Header = () => {
   return (
     <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
       <Container>
-        <Navbar.Brand href='/'>Statistic Dashboard</Navbar.Brand>
+        <Navbar.Brand href='/'>
+          {userInfo ? userInfo.username : 'Statistic Dashboard'}
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           {userInfo ? (
